@@ -47,6 +47,22 @@ app.get('/task2B/', (req, res) => {
     res.send(result);
 });
 
+/**
+ * URI /task2C/
+ */
+app.get('/task2C/', (req, res) => {
+    const PATTERN_USERNAME = /^(?:http)?[s]?[\:]?(?:\/\/)?(?:[a-z0-9\.\-]*(?=\/)\/)?(?:@)?([a-z0-9\-_\.]+)/i;
+    const {username} = req.query;
+
+    try {
+        res.send('@' + username.match(PATTERN_USERNAME)[1]);
+    } catch (err) {
+        res
+            .status(500)
+            .send(err.stack);
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);
 })
