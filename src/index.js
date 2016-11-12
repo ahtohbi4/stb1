@@ -14,7 +14,7 @@ import task3A from './task3A';
 app.get('/task2A/', task2A);
 app.get('/task2B/', task2B);
 app.get('/task2C/', task2C);
-app.get('/task3A/', task3A);
+app.use('/task3A/*', task3A);
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);
