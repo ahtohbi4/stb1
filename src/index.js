@@ -6,62 +6,15 @@ app.use(cors());
 
 const PORT = 3000;
 
-/**
- * URI /task2A/
- */
-app.get('/task2A/', (req, res) => {
-    let result;
-    const {a = 0, b = 0} = req.query;
+import task2A from './task2A';
+import task2B from './task2B';
+import task2C from './task2C';
+import task3A from './task3A';
 
-    result = Number(a) + Number(b);
-
-    res.send(String(result));
-});
-
-function capitalizeFirstLetter(text) {
-    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-}
-
-/**
- * URI /task2B/
- */
-app.get('/task2B/', (req, res) => {
-    let result;
-    const PATTERN_FULLNAME = /^[a-zа-яó']+([\s]*[a-zа-яó']*){0,2}$/i;
-    const PATTERN_WORD_SEPARATOR = /[\s]+/;
-    const {fullname} = req.query;
-
-    result = fullname.trim();
-
-    if (!PATTERN_FULLNAME.test(result)) {
-        result = 'Invalid fullname';
-    } else {
-        result = result.split(PATTERN_WORD_SEPARATOR);
-        const surname = capitalizeFirstLetter(result.pop());
-
-        result = result.reduce((greeting, word, i) => {
-            return `${greeting} ${word[0].toUpperCase()}.`;
-        }, surname);
-    }
-
-    res.send(result);
-});
-
-/**
- * URI /task2C/
- */
-app.get('/task2C/', (req, res) => {
-    const PATTERN_USERNAME = /^(?:http)?[s]?[\:]?(?:\/\/)?(?:[a-z0-9\.\-]*(?=\/)\/)?(?:@)?([a-z0-9\-_\.]+)/i;
-    const {username} = req.query;
-
-    try {
-        res.send('@' + username.match(PATTERN_USERNAME)[1]);
-    } catch (err) {
-        res
-            .status(500)
-            .send(err.stack);
-    }
-});
+app.get('/task2A/', task2A);
+app.get('/task2B/', task2B);
+app.get('/task2C/', task2C);
+app.get('/task3A/', task3A);
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}!`);
